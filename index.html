@@ -9,11 +9,69 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
     <script src="https://kit.fontawesome.com/834e4892b4.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script>
+            function pretraga() {
+    // Dobijanje vrednosti iz polja za unos teksta
+    var inputValue = document.getElementById("search_").value.toLowerCase();
+
+    // Dobijanje svih elemenata sa određenom klasom
+    var elementsToFilter = document.getElementsByClassName("tekst");        
+    var elementsToFilter2 = document.querySelectorAll("profilc, obrazovanjec, iskustvoc, postignucec,kontaktc");
         
+// Iteration through all elements and applying the filter
+    elementsToFilter2.forEach(function (element) {
+    console.log(element);
+
+    // Ako tekst elementa sadrži unetu vrednost, prikaži element; inače, sakrij element
+    var elementText = element.innerText.toLowerCase();
+    if (elementText.includes(inputValue)) {
+        // Show the element or specific child elements
+        element.querySelectorAll("*").forEach(function (childElement) {
+            childElement.classList.remove("hidden");
+            childElement.classList.add("visible");
+        });
+
+    } else {
+        // Hide the element or specific child elements
+        element.querySelectorAll("*").forEach(function (childElement) {
+            childElement.classList.remove("visible");
+            childElement.classList.add("hidden");
+        });
+    }
+});
+
+    for (var i = 0; i < elementsToFilter.length; i++)
+    {
+        console.log(elementsToFilter[i])
+        var elementText = elementsToFilter[i].innerText.toLowerCase();
+
+        // Ako tekst elementa sadrži unetu vrednost, prikaži element; inače, sakrij element
+        if (elementText.includes(inputValue) ) {
+            elementsToFilter[i].classList.remove("hidden");
+            elementsToFilter[i].classList.add("visible");
+        } else {
+            elementsToFilter[i].classList.remove("visible");
+            elementsToFilter[i].classList.add("hidden");
+        }
+    }
+    
+}
+function resetovanje(){
+    var elementsToFilter = document.getElementsByClassName("tekst");
+    for (var i = 0; i < elementsToFilter.length; i++)
+     {
+        
+        // Ako tekst elementa sadrži unetu vrednost, prikaži element; inače, sakrij element
+        
+            elementsToFilter[i].classList.remove("hidden");
+            elementsToFilter[i].classList.add("visible");
+    }
+    
+}
+</script>
     <style>
         *{
             transition: all 0.5s ease-in-out;
@@ -83,7 +141,22 @@
             width:100%;
             z-index: 1000;
         }
-        .tekst{}
+    
+        .tekst {
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .hidden {
+            display:none;
+        }
+
+        .visible {
+            opacity: 1;
+        }
+        .hov:hover{
+            background-color: rgb(206, 197, 197);
+        }
+        
     </style>
 
 </head>
@@ -114,25 +187,27 @@
                     </li>
                 </ul>
             </div>
-            <form action="/action_page.php">
-                <input type="text" placeholder="Search.." name="search">
-                <button type="submit"><i class="fa fa-search"></i></button>
-                <input type="reset" placeholder="reset" name="reset">
+            <form>
+                <input id="search_" type="text" placeholder="Pretraga..." name="search">
+                <button class="hov" id="dugme" type="button" onclick="pretraga()"><i class="fa fa-search"></i></button>
+                <input class="hov" type="reset" placeholder="Reset" name="reset" onclick="resetovanje()">
               </form>
         </div>
     </nav>
     <br><br>
-    <div id="profil" class="container mt-5">
+    <div id="profil" class="profilc container mt-5">
+        <div class="tekst">
         <h1 class="text-light text-center con">Profil <i class="fa-solid fa-pen"></i></h1>
-                    <div class="text-light text-center">______________________________</div>
+                    <div class="text-light text-center">______________________________</div></div>
                     <br><br><br><br>
         <div class="row">
             <div class="col">
                 
                 <div class="container mt-5 justify-content-center">
                     <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-5">
+                        
                         <div class="col col-lg-3 col-md-6 col-sm-12">
-                            <img style="height: 150px; width: auto;" src="slika.jpg" class="img-fluid img-thumbnail rounded-2 slika" alt="Profilna slika">
+                            <img style="height: 150px; width: auto;" src="slika.jpg" class="img-fluid img-thumbnail rounded-2 slika tekst" alt="Profilna slika">
                         </div>
                         <div class="col col-lg-3 col-md-6 col-sm-12">
                             <div class="col text-light tekst">
@@ -145,6 +220,7 @@
                                 <div>Adresa: Đenerala Terzibašića 25</div>
                             </div>
                         </div>
+                        
                         <div class="col col-lg-3 col-md-6 col-sm-12 tekst">
                             <div class="col text-light">
                                 <div><b>Jezici</b></div>
@@ -177,7 +253,7 @@
                                     </div>
                                 </div>
                         </div>
-                        <div class="col col-lg-3 col-md-6 col-sm-12">
+                        <div class="col col-lg-3 col-md-6 col-sm-12 tekst">
                             <div class="col text-light tekst">
                                 <div><b>Ličnost</b></div>
                                 <div class="text-light">____________</div>
@@ -188,20 +264,27 @@
                             <div><b>Ciljevi</b></div>
                             <div class="text-light">____________</div>
                             <br>
-                            <div class="row">
-                                <div  class="col col-2 mb-3">
+                            <div class="col">
+                                <div class="tekst col">
+                                    <div class="row">
+                                <div  class="col col-2 mb-3 ">
                                     <img class="slika" style="width: 100%;" src="boston.jpg" alt="Boston Dynamics">
                                 </div>
                                 <div class="mt-2 col col-4">
                                         Želim da radim u kompaniji Boston Dynamics i da razvijam humanoidne robote koji će
                                         moći da se koriste u vojsci i za istraživanja u svemiru.
                                 </div>
-                                
-                                <div  class="col col-2 mb-3">
+                                    </div>
+                                </div>
+                                <div class="tekst col">
+                                    <div class="row">
+                                <div  class="col col-2 mb-3 ">
                                     <img class="slika" style="width: 100%;" src="sony.jpg" alt="Sony">
                                 </div>
                                 <div class="mt-2 col-4 col">
                                         Želim da se preselim u Englesku i da se zaposlim u Sony korporaciji.
+                                </div>
+                                </div>
                                 </div>
                             </div>
                                 
@@ -214,21 +297,21 @@
                 </div>
                 
                 <br>
-                <div id="obrazovanje" class="mt-5 text-light tekst">
+                <div id="obrazovanje" class="obrazovanjec mt-5 text-light tekst">
                     <h1 class="text-light text-center con">Obrazovanje <i class="fa-solid fa-user-graduate"></i></h1>
                     <div class="text-light text-center">____________________________________________</div>
                     <br><br><br><br>
                     <div class="row mt-3">
-                        <div class="col">
+                        <div class="col tekst">
                             <div class="row">
                                 <img style="height: 100px; width: auto;" src="stanislav.png">
-                                <div class="col">
+                                <div class="col tekst">
                                     <b> Osnovna škola Stanislav Sremčević</b>
                                     <div>1998 - 2006</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col tekst">
                             <div class="row">
                                 <img class="img-thumbnail" style="height: 100px; width: auto;" src="gimnazija.png"> 
                                 <div class="col">
@@ -237,10 +320,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col tekst">
                             <div class="row">
                                 <img style="height: 100px; width: auto;" src="pmf.png">
-                                <div class="col">
+                                <div class="col tekst">
                                     <b>Prirodno-matematički fakultet, Univerzitet u Kragujevcu</b>
                                     <div>2010 - 2015</div>
                                 </div>
@@ -249,30 +332,31 @@
                     </div>
                 </div>
                 <br><br><br>
-                <div id="iskustvo" class="mt-5 text-light tekst">
+                <div id="iskustvo" class="iskustvoc mt-5 text-light">
+                    <div class="tekst">
                     <h1 class="text-light text-center con">Iskustvo  <i class="fa-solid fa-school"></i></h1>
-                    <div class="text-light text-center">_______________________________</div>
+                    <div class="text-light text-center">_______________________________</div></div>
                     <br><br><br>
                     <div class="row mt-3">
-                        <div class="col ">
+                        <div class="col tekst">
                             <img style="height: 100px; width: auto;" src="microsoft.jpg" alt="Microsoft">
                             <div><b>Microsoft</b></div>
                             <div>Praksa u Microsoft-u</div>
                             <div>2015 - 2016</div>
                         </div>
-                        <div class="col">
+                        <div class="col tekst">
                             <img style="height: 100px; width: auto;" src="ubisoft.jpg" alt="Ubisoft">
                             <div><b>Ubisoft</b></div>
                             <div>Game developer</div>
                             <div>2016 - 2018</div>
                         </div>
-                        <div class="col">
+                        <div class="col tekst">
                             <img style="height: 100px; width: auto;" src="content.png" alt="Content Insights AD">
                             <div><b>Content Insights AD</b></div>
                             <div>Junior Software Engineer</div>
                             <div>2018 - 2023</div>
                         </div>
-                        <div class="col">
+                        <div class="col tekst">
                             <img style="height: 100px; width: auto;" src="nordeus.jpg" alt="Nordeus">
                             <div><b>Nordeus</b></div>
                             <div>Game developer</div>
@@ -281,36 +365,36 @@
                     </div>
                 </div>
                 <br><br><br>
-                <div id="postignuca" class="mt-5 tekst">
+                <div id="postignuca" class="postignucec mt-5 tekst">
                     <h1 class="text-light text-center con">Postignuća  <i class="fa-solid fa-house-laptop"></i></h1>
                     <div class="text-light text-center">______________________________________</div>
                     <br><br><br>
                     <div class="row mt-3">
-                        <div class="col">
+                        <div class="col tekst">
                             <img style="height: 120px; width: auto;" src="assassin.png"
                                 alt="Assassin's Creed">
-                                <div class="text-light">Dok sam radila u kompaniji Ubisoft radila sam na programiranju okruženja igre Assassin's Creed Origins.</div>
+                                <div class="text-light tekst">Dok sam radila u kompaniji Ubisoft radila sam na programiranju okruženja igre Assassin's Creed Origins.</div>
                             </div>
-                        <div class="col">
+                        <div class="col tekst">
                             <img style="height: 120px; width: auto;" src="eagle flight.png"
                                 alt="Eagle Flight">
-                                <div class="text-light">Dok sam radila u kompaniji Ubisoft radila sam na dizajnu likova igre Eagle Flight.</div>
+                                <div class="text-light tekst">Dok sam radila u kompaniji Ubisoft radila sam na dizajnu likova igre Eagle Flight.</div>
                             </div>
-                        <div class="col">
+                        <div class="col tekst">
                             <img style="height: 120px; width: auto;" src="heroic.jpg" alt="Heroic">
-                            <div class="text-light">Dok sam radila u kompaniji Nordeus radila sam na programiranju okruženja igre Heroic Magic Duel.</div>
+                            <div class="text-light tekst">Dok sam radila u kompaniji Nordeus radila sam na programiranju okruženja igre Heroic Magic Duel.</div>
 
                         </div>
-                        <div class="col">
+                        <div class="col tekst">
                             <img style="height: 120px; width: auto;" src="top eleven.jpg"
                                 alt="Top Eleven">
-                                <div class="text-light">Dok sam radila u kompaniji Nordeus razvijala sam sposobnosti i karakteristike likova igre Top Eleven 2023.</div>
+                                <div class="text-light tekst">Dok sam radila u kompaniji Nordeus razvijala sam sposobnosti i karakteristike likova igre Top Eleven 2023.</div>
 
                             </div>
                     </div>
                 </div></div>
                 <br><br>
-                <div id="kontakt" class="tekst">
+                <div id="kontakt" class="kontaktc tekst">
                 <h1 class="text-light text-center con">Kontakt  <i class="fa-solid fa-id-card"></i></h1>
                 <div class="text-light text-center ">_________________________________</div>
                 <br><br><br>
@@ -331,7 +415,7 @@
                                                     <div class="input-group mb-2">
                                                         <div class="input-group-prepend">
                                                         </div>
-                                                        <input type="text" class="form-control" id="text" name="text" placeholder="Unesite ime" required>
+                                                        <input type="text" class="form-control" id="text2" name="text" placeholder="Unesite ime" required>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -373,9 +457,8 @@
                 </div>
         </div>
                 <br><br>
-                <script>
-                    
-                </script>
+                
+            
             </body>
 
 
